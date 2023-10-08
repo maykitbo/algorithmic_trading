@@ -37,7 +37,7 @@ bool NewtonPolynomial::CreatePolynomial(unsigned degree)
     {
         for (unsigned i = 0; i < degree_; ++i)
         {
-            divided_differences_[i][0] = points_[i + k].y;
+            divided_differences_[i][0] = points_[i + k].second;
         }
         coef_[k][0] = divided_differences_[0][0];
         for (unsigned j = 1; j < degree_; ++j)
@@ -45,7 +45,7 @@ bool NewtonPolynomial::CreatePolynomial(unsigned degree)
             for (unsigned i = 0; i < degree_ - j; ++i)
             {
                 divided_differences_[i][j] = (divided_differences_[i + 1][j - 1] -
-                    divided_differences_[i][j - 1]) / (points_[i + j + k].x - points_[i + k].x);
+                    divided_differences_[i][j - 1]) / (points_[i + j + k].first - points_[i + k].first);
 
             }
             coef_[k][j] = divided_differences_[0][j];
@@ -61,7 +61,7 @@ Real NewtonPolynomial::Interpolate(Real x_interpolated, unsigned k)
     Real result = coef[n];
     for (unsigned i = 1; i <= n; ++i)
     {
-        result = (result * (x_interpolated - points_[n - i + k].x)) + coef[n - i];
+        result = (result * (x_interpolated - points_[n - i + k].first)) + coef[n - i];
     }
     return result;
 }
@@ -76,8 +76,8 @@ PointsDec NewtonPolynomial::Solve(unsigned N, unsigned degree)
     PointsDec result;
     result.reserve(N);
 
-    Real x_interpolated = points_[0].x;
-    Real step = (points_.back().x - points_.front().x) / (Real)(N - 1);
+    Real x_interpolated = points_[0].first;
+    Real step = (points_.back().first - points_.front().first) / (Real)(N - 1);
 
     unsigned d = 0;
 
@@ -85,7 +85,7 @@ PointsDec NewtonPolynomial::Solve(unsigned N, unsigned degree)
         Real y_interpolated = Interpolate(x_interpolated, d);
         result.push_back({x_interpolated, y_interpolated});
 
-        if (x_interpolated > points_[d + degree_ / 2].x && d < size_ - degree_)
+        if (x_interpolated > points_[d + degree_ / 2].first && d < size_ - degree_)
         {
             ++d;
         }
@@ -95,14 +95,14 @@ PointsDec NewtonPolynomial::Solve(unsigned N, unsigned degree)
 
 Real NewtonPolynomial::Calc(double time, unsigned degree)
 {
-    if (time < points_.front().x || time > points_.back().x || !CreatePolynomial(degree))
+    if (time < points_.front().first || time > points_.back().first || !CreatePolynomial(degree))
     {
         return std::numeric_limits<Real>::quiet_NaN();
     }
     unsigned d = 0;
     for (unsigned i = 0; i < size_ - 1; ++i)
     {
-        if (time >= points_[i].x)
+        if (time >= points_[i].first)
         {
             return Interpolate(time, d);
         }

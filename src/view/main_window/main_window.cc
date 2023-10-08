@@ -21,18 +21,11 @@ MainWindow::~MainWindow()
     delete ui_;
 }
 
-QString MainWindow::NameString(const QString &name, unsigned size)
-{
-    return name + " [" + QString::number(size) + "]";
-}
-
 QString MainWindow::FileNameString(const QString &name, unsigned size)
 {
     int index = name.lastIndexOf('/');
-    return NameString(name.mid(index + 1), size);
+    return name.mid(index + 1) + " [" + QString::number(size) + "]";
 }
-
-
 
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -43,11 +36,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
     else if (event->key() == Qt::Key_Space)
     {
-        if (ui_->tab->currentIndex() == 0)
+        if (ui_->tab->currentIndex() == 0 && i_graphs_ == 0)
         {
             InterpolationFileRead(default_file_name_);
         }
-        else
+        else if (ui_->tab->currentIndex() == 1 && a_graphs_ == 0)
         {
             ApproximationFileRead(default_file_name_);
         }

@@ -23,8 +23,8 @@ bool LeastSquares::CreatePolynomial(unsigned degree)
     unsigned n = points_.size();
 
     coef_ = matrix(degree_, 1, 0.0);
-    matrix X(n, degree_, [&] (auto i, auto j) { return boost::multiprecision::pow(points_[i].x, j); });
-    matrix Y(n, 1, [&] (auto i, auto j) { return points_[i].y; });
+    matrix X(n, degree_, [&] (auto i, auto j) { return boost::multiprecision::pow(points_[i].first, j); });
+    matrix Y(n, 1, [&] (auto i, auto j) { return points_[i].second; });
     // coef_ = (X^t * X)^-1 * X^t * Y
     // A = X^t * X
     matrix A(degree_, degree_);
@@ -51,13 +51,13 @@ PointsDec LeastSquares::Solve(unsigned points_count, unsigned degree)
         return points_;
     }
 
-    unsigned n = (int)points_.back().x - (int)points_.front().x + points_count;
+    unsigned n = (int)points_.back().first - (int)points_.front().first + points_count;
 
     // Points interpolated_points(n);
     PointsDec interpolated(n);
     // interpolated_points.reserve(n);
 
-    Real x = points_.front().x;
+    Real x = points_.front().first;
     // PointDec p;
 
     for (int i = 0; i < n; ++i, x += 1.0) {

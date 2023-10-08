@@ -12,12 +12,14 @@ void MainWindow::ApproximationInit()
     ui_->a_degree_spin->setMinimum(1);
     ui_->a_degree_spin->setMaximum(6);
     
-    auto name_frame = ui_->a_graph_widget->GetNamesFrame();
-    name_frame->setLineWidth(ui_->i_time_frame->lineWidth());
-    name_frame->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-    name_frame->setFrameShape(QFrame::StyledPanel);
+    auto layers_frame = ui_->a_graph_widget->DetachFrame();
+    layers_frame->setParent(ui_->a_set_frame);
+    // layers_frame->setLineWidth(ui_->approximate_frame->lineWidth());
+    // layers_frame->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    // ui_->a_set_spacer->changeSize(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    // layers_frame->setFrameShape(QFrame::StyledPanel);
     auto layout = static_cast<QVBoxLayout*>(ui_->a_set_frame->layout());
-    layout->insertWidget(layout->count() - 2, name_frame);
+    layout->insertWidget(layout->count() - 2, layers_frame, 2);
 
     connect(ui_->a_hide_button, &QPushButton::clicked,
         this, &MainWindow::ApproximationHideButton);
@@ -27,11 +29,11 @@ void MainWindow::ApproximationInit()
         this, &MainWindow::ApproximationFileButton);
     connect(ui_->approximate_button, &QPushButton::clicked,
         this, &MainWindow::ApproximateButton);
-    connect(name_frame, &NamesFrame::NameRemoved,
+    connect(layers_frame, &Graph::Frame::GraphRemoved,
         this, &MainWindow::ApproximationGraphRemove);
 }
 
-void MainWindow::ApproximationGraphRemove(GraphName *name)
+void MainWindow::ApproximationGraphRemove()
 {
     --a_graphs_;
     ui_->approximate_frame->setEnabled(true);
@@ -41,7 +43,7 @@ void MainWindow::ApproximateButton()
 {
     unsigned degree = ui_->a_degree_spin->value();
     auto data = facade_.LeastSquaresData(ui_->a_days_spin->value(), degree);
-    ui_->a_graph_widget->AddData(data, NameString("Approximate"  + QString::number(degree), data.size()));
+    ui_->a_graph_widget->AddGraph(data, "Approximate"  + QString::number(degree), false, true);
     ++a_graphs_;
     if (a_graphs_ >= a_max_graphs_)
     {
@@ -54,7 +56,7 @@ void MainWindow::ApproximationRawData(Points &data)
     ui_->a_days_spin->setMaximum(data.size() * 4);
     a_graphs_ = 0;
     ui_->a_graph_widget->Clear();
-    ui_->a_graph_widget->AddData(data, NameString("Base", data.size()));
+    ui_->a_graph_widget->AddGraph(data, "Base", true, false);
     ui_->a_file_info_lable->setText(FileNameString(i_filename_, data.size()));
     ++a_graphs_;
     ui_->a_clear_button->setEnabled(true);
@@ -97,7 +99,7 @@ void MainWindow::ApproximationHideButton()
     ui_->a_file_info_lable->setVisible(a_hide_);
     ui_->a_file_button->setVisible(a_hide_);
     ui_->a_clear_button->setVisible(a_hide_);
-    ui_->a_graph_widget->GetNamesFrame()->setVisible(a_hide_);
+    ui_->a_graph_widget->GetFrame()->setVisible(a_hide_);
     a_hide_ = !a_hide_;
 }
 

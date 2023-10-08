@@ -36,14 +36,14 @@ class MainWindow : public QMainWindow
         void InterpolationFileButton();
         void CubicSplineButton();
         void NewtonPolynomialButton();
-        void InterpolationGraphRemove(GraphName *name);
+        void InterpolationGraphRemove();
         void InterpolationCalcButton();
 
         void ApproximationHideButton();
         void ApproximationClearButton();
         void ApproximationFileButton();
         void ApproximateButton();
-        void ApproximationGraphRemove(GraphName *name);
+        void ApproximationGraphRemove();
     
     protected:
         void keyPressEvent(QKeyEvent *event) override;
@@ -78,7 +78,6 @@ class MainWindow : public QMainWindow
         unsigned a_max_graphs_{5};
 
         void InterpolationClearHelper();
-        QString NameString(const QString &name, unsigned size);
         QString FileNameString(const QString &name, unsigned size);
 
         QString default_file_name_{"../materials/AAPL.csv"};

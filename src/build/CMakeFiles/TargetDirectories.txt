@@ -1,8 +1,0 @@
-/home/alexey/projects/A8_Algorithmic_trading-1/src/build/CMakeFiles/algorithmic_trading.dir
-/home/alexey/projects/A8_Algorithmic_trading-1/src/build/CMakeFiles/edit_cache.dir
-/home/alexey/projects/A8_Algorithmic_trading-1/src/build/CMakeFiles/rebuild_cache.dir
-/home/alexey/projects/A8_Algorithmic_trading-1/src/build/CMakeFiles/list_install_components.dir
-/home/alexey/projects/A8_Algorithmic_trading-1/src/build/CMakeFiles/install.dir
-/home/alexey/projects/A8_Algorithmic_trading-1/src/build/CMakeFiles/install/local.dir
-/home/alexey/projects/A8_Algorithmic_trading-1/src/build/CMakeFiles/install/strip.dir
-/home/alexey/projects/A8_Algorithmic_trading-1/src/build/CMakeFiles/algorithmic_trading_autogen.dir

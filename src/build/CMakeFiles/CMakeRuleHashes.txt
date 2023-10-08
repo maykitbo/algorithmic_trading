@@ -1,2 +1,0 @@
-# Hashes of file build rules.
-a44bd5e5bfbb52341e0ac51d0333e7ef CMakeFiles/algorithmic_trading_autogen

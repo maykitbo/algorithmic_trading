@@ -53,7 +53,7 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="s21::GraphWidget" name="i_graph_widget" native="true">
+         <widget class="Graph::WidgetFrame" name="i_graph_widget" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -308,7 +308,7 @@
             </widget>
            </item>
            <item>
-            <spacer name="verticalSpacer">
+            <spacer name="i_set_spacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -338,7 +338,7 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_10">
         <item>
-         <widget class="s21::GraphWidget" name="a_graph_widget" native="true">
+         <widget class="Graph::WidgetFrame" name="a_graph_widget" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -471,7 +471,7 @@
             </widget>
            </item>
            <item>
-            <spacer name="verticalSpacer_2">
+            <spacer name="a_set_spacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -513,9 +513,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>s21::GraphWidget</class>
+   <class>Graph::WidgetFrame</class>
    <extends>QWidget</extends>
-   <header>graph_widget.h</header>
+   <header>widget_frame.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

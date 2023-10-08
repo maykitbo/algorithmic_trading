@@ -14,12 +14,11 @@ void MainWindow::InterpolationInit()
     ui_->N_degree_spin_val->setMaximum(16);
     ui_->N_degree_spin_val->setMinimum(2);
 
-    auto names_frame = ui_->i_graph_widget->GetNamesFrame();
-    names_frame->setLineWidth(ui_->i_time_frame->lineWidth());
-    names_frame->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-    names_frame->setFrameShape(QFrame::StyledPanel);
-    auto layout = static_cast<QVBoxLayout*>(ui_->i_set_frame->layout());
-    layout->insertWidget(layout->count() - 2, names_frame);
+    auto layers_frame = ui_->i_graph_widget->DetachFrame();
+    layers_frame->setParent(ui_->i_set_frame);
+    QVBoxLayout *layout = static_cast<QVBoxLayout*>(ui_->i_set_frame->layout());
+    layout->insertWidget(layout->count() - 2, layers_frame, 2);
+    
 
     connect(ui_->i_hide_button, &QPushButton::clicked,
         this, &MainWindow::InterpolationHideButton);
@@ -31,24 +30,23 @@ void MainWindow::InterpolationInit()
         this, &MainWindow::CubicSplineButton);
     connect(ui_->N_button, &QPushButton::clicked,
         this, &MainWindow::NewtonPolynomialButton);
-    connect(names_frame, &NamesFrame::NameRemoved,
+    connect(layers_frame, &Graph::Frame::GraphRemoved,
         this, &MainWindow::InterpolationGraphRemove);
     connect(ui_->calc_button, &QPushButton::clicked,
         this, &MainWindow::InterpolationCalcButton);
-    
 }
 
 void MainWindow::InterpolationCalcButton()
 {
     auto q_time = ui_->i_date_time_edit->dateTime();
-    double time = Point::ToDays(q_time.toSecsSinceEpoch());
+    double time = Convert::ToDays(q_time.toSecsSinceEpoch());
     unsigned degree = ui_->N_degree_spin_val->value();
     auto result = facade_.InterpolationClac(time, degree);
     ui_->CS_value_label->setText(QString::number(result.first));
     ui_->N_value_label->setText(QString::number(result.second));
 }
 
-void MainWindow::InterpolationGraphRemove(GraphName *name [[maybe_unused]])
+void MainWindow::InterpolationGraphRemove()
 {
     --i_graphs_;
     ui_->i_add_graph_frame->setEnabled(true);
@@ -56,11 +54,11 @@ void MainWindow::InterpolationGraphRemove(GraphName *name [[maybe_unused]])
 
 void MainWindow::InterpolationRawData(Points &data)
 {
-    ui_->i_date_time_edit->setMinimumDateTime(QDateTime::fromSecsSinceEpoch(Point::ToSeconds(data[0].x)));
-    ui_->i_date_time_edit->setMaximumDateTime(QDateTime::fromSecsSinceEpoch(Point::ToSeconds(data.back().x)));
+    ui_->i_date_time_edit->setMinimumDateTime(QDateTime::fromSecsSinceEpoch(Convert::ToSeconds(data[0].first)));
+    ui_->i_date_time_edit->setMaximumDateTime(QDateTime::fromSecsSinceEpoch(Convert::ToSeconds(data.back().first)));
     ui_->i_points_spin_box->setMinimum(data.size());
     InterpolationClearHelper();
-    ui_->i_graph_widget->AddData(data, NameString("Base", data.size()));
+    ui_->i_graph_widget->AddGraph(data, "Base", false, false);
     ui_->i_file_info_lable->setText(FileNameString(i_filename_, data.size()));
     ++i_graphs_;
     ui_->i_time_frame->setEnabled(true);
@@ -72,7 +70,7 @@ void MainWindow::InterpolationRawData(Points &data)
 void MainWindow::CubicSplineButton()
 {
     auto data = facade_.CubicSplineData(ui_->i_points_spin_box->value());
-    ui_->i_graph_widget->AddData(data, NameString("Cubic spline", data.size()));
+    ui_->i_graph_widget->AddGraph(data, "Cubic spline", false, true);
     ++i_graphs_;
     if (i_graphs_ == i_max_graphs_)
     {
@@ -84,9 +82,11 @@ void MainWindow::NewtonPolynomialButton()
 {
     unsigned degree = ui_->N_degree_spin_ag->value();
     auto data = facade_.NewtonPolynomialData(ui_->i_points_spin_box->value(), degree);
-    ui_->i_graph_widget->AddData(
-            data,
-            NameString("Newton " + QString::number(degree), data.size()));
+    ui_->i_graph_widget->AddGraph(data, "Newton " + QString::number(degree), false, true);
+    // ui_->i_set_frame->updateGeometry();
+    // ui_->i_set_frame->update();
+    // updateGeometry();
+    // update();
     ++i_graphs_;
     if (i_graphs_ == i_max_graphs_)
     {
@@ -137,6 +137,6 @@ void MainWindow::InterpolationHideButton()
     ui_->i_clear_button->setVisible(i_hide_);
     ui_->i_file_button->setVisible(i_hide_);
     ui_->i_file_info_lable->setVisible(i_hide_);
-    ui_->i_graph_widget->GetNamesFrame()->setVisible(i_hide_);
+    ui_->i_graph_widget->GetFrame()->setVisible(i_hide_);
     i_hide_ = !i_hide_;
 }

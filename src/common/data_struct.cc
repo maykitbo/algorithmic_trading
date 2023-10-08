@@ -3,15 +3,15 @@
 using namespace s21;
 
 
-Point::Point(const PointDec &p)
-    : x(p.x.convert_to<fp_type>())
-    , y(p.y.convert_to<fp_type>())
-    {}
+// Point::Point(const PointDec &p)
+//     : x(p.x.convert_to<fp_type>())
+//     , y(p.y.convert_to<fp_type>())
+//     {}
 
-PointDec::PointDec(const Point &p)
-    : x(p.x)
-    , y(p.y)
-    {}
+// PointDec::PointDec(const Point &p)
+//     : x(p.x)
+//     , y(p.y)
+//     {}
 
 Points ParserCsv::Parse(const std::string &filename)
 {
@@ -38,7 +38,7 @@ Points ParserCsv::Parse(const std::string &filename)
     {
         Point point;
         std::tm tm{};
-        int ser = sscanf(line.c_str(), sscanf_format.c_str(), &tm.tm_year, &tm.tm_mon, &tm.tm_mday, &point.y);
+        int ser = sscanf(line.c_str(), sscanf_format.c_str(), &tm.tm_year, &tm.tm_mon, &tm.tm_mday, &point.second);
         if (ser != 4)
         {
             throw std::runtime_error("Error: Unable to parse date string " + line);
@@ -48,7 +48,7 @@ Points ParserCsv::Parse(const std::string &filename)
         tm.tm_mon -= 1;
         time_t time = mktime(&tm);
         // point.x = (double)time / (60.0 * 60.0 * 24.0); // Seconds to days
-        point.x = Point::ToDays(time);
+        point.first = Convert::ToDays(time);
         points.push_back(point);
         
     }
@@ -56,12 +56,12 @@ Points ParserCsv::Parse(const std::string &filename)
     return points;
 }
 
-double Point::ToSeconds(double days)
+fp_type Convert::ToSeconds(fp_type days)
 {
     return days * 60.0 * 60.0 * 24.0;
 }
 
-double Point::ToDays(double seconds)
+fp_type Convert::ToDays(fp_type seconds)
 {
     return seconds / 60.0 / 60.0 / 24.0;
 }
@@ -77,11 +77,11 @@ Points Convert::ToDouble(const PointsDec &points)
 }
 
 
-bool Point::operator==(const Point &p) const {
-    return x == p.x && y == p.y;
-}
+// bool Point::operator==(const Point &p) const {
+//     return x == p.x && y == p.y;
+// }
 
-bool Point::operator!=(const Point &p) const {
-    return !(*this == p);
-}
+// bool Point::operator!=(const Point &p) const {
+//     return !(*this == p);
+// }
 

@@ -10,56 +10,25 @@
 
 #include <boost/multiprecision/cpp_dec_float.hpp>
 
-
 namespace s21 {
 
 typedef double fp_type;
 typedef boost::multiprecision::cpp_dec_float_50 Real;
-// typedef boost::multiprecision::cpp_dec_float_50 fp_type; // 50 decimal digits
 
-struct PointDec;
+typedef std::pair<fp_type, fp_type> Point;
+typedef std::pair<Real, Real> PointDec;
 
-
-/**
- * @brief The Point struct
-*/
-struct Point
-{
-    fp_type x;
-    // time_t x;
-    fp_type y;
-    bool operator==(const Point &p) const;
-    bool operator!=(const Point &p) const;
-    static double ToSeconds(double days);
-    static double ToDays(double seconds);
-
-    Point() = default;
-    Point(fp_type x, fp_type y) : x(x), y(y) {}
-    Point(const PointDec &p);
-};
-
-struct PointDec
-{
-    
-    Real x;
-    Real y;
-    PointDec() = default;
-    PointDec(Real x, Real y) : x(x), y(y) {}
-    PointDec(const Point &p);
-};
-
-typedef std::vector<Point> Points;
-typedef std::vector<PointDec> PointsDec;
+typedef std::vector<std::pair<fp_type, fp_type>> Points;
+typedef std::vector<std::pair<Real, Real>> PointsDec;
 
 struct Convert
 {
     static PointsDec ToDec(const Points &points);
     static Points ToDouble(const PointsDec &points);
+    static fp_type ToSeconds(fp_type days);
+    static fp_type ToDays(fp_type seconds);
 };
 
-/**
- * @brief The ParserCsv struct
-*/
 struct ParserCsv {
     static Points Parse(const std::string &filename);
 };

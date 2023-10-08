@@ -2,7 +2,7 @@
 
 all:
 	cmake -S . -B build
-	make -C build
+	make -C build -j4
 	./build/algorithmic_trading
 
 clean:
