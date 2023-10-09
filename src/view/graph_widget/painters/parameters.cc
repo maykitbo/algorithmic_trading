@@ -63,6 +63,12 @@ void Parameters::Resize(qreal w, qreal h)
 
 void Parameters::SetMinMax(qreal min_x, qreal max_x, qreal min_y, qreal max_y)
 {
+    if (isnan(min_x) || isnan(max_x) || isnan(min_y) || isnan(max_y) ||
+            isinf(min_x) || isinf(max_x) || isinf(min_y) || isinf(max_y))
+    {
+        std::cerr << "Graph::Parameters::SetMinMax: Incorrect input data\n";
+        return;
+    }
     SetYMinMax(min_y, max_y);
     SetXMinMax(min_x, max_x);
 }
@@ -91,6 +97,12 @@ void Parameters::SetXMinMax(qreal min_x, qreal max_x)
 
 void Parameters::AddMinMax(qreal min_x, qreal max_x, qreal min_y, qreal max_y)
 {
+    if (isnan(min_x) || isnan(max_x) || isnan(min_y) || isnan(max_y) ||
+            isinf(min_x) || isinf(max_x) || isinf(min_y) || isinf(max_y))
+    {
+        std::cerr << "Graph::Parameters::AddMinMax: Incorrect input data\n";
+        return;
+    }
     if (x_max - x_min <= 0)
     {
         x_max = max_x;

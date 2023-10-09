@@ -1,9 +1,9 @@
 #pragma once
 
 #include "data_struct.h"
-#include "interpolation/cubic_spline.h"
-#include "interpolation/newton_polynomial.h"
-#include "approximation/least_squares.h"
+#include "cubic_spline/cubic_spline.h"
+#include "newton_polynomial/newton_polynomial.h"
+#include "least_squares/least_squares.h"
 
 namespace s21 {
 
@@ -24,11 +24,8 @@ class Facade {
         void ApproximationClear();
     
     private:
-        // Points interpolation_data_;
-        // Points approximation_data_;
-
         PointsDec interpolation_data_;
-        PointsDec approximation_data_;
+        PointsWeightsDec approximation_data_;
 
         void RemoveInterpolation();
         void RemoveApproximation();

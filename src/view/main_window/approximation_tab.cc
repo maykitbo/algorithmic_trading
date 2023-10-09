@@ -2,8 +2,6 @@
 
 using namespace s21;
 
-
-
 void MainWindow::ApproximationInit()
 {
     ui_->approximate_frame->setEnabled(false);
@@ -14,12 +12,8 @@ void MainWindow::ApproximationInit()
     
     auto layers_frame = ui_->a_graph_widget->DetachFrame();
     layers_frame->setParent(ui_->a_set_frame);
-    // layers_frame->setLineWidth(ui_->approximate_frame->lineWidth());
-    // layers_frame->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-    // ui_->a_set_spacer->changeSize(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-    // layers_frame->setFrameShape(QFrame::StyledPanel);
     auto layout = static_cast<QVBoxLayout*>(ui_->a_set_frame->layout());
-    layout->insertWidget(layout->count() - 2, layers_frame, 2);
+    layout->insertWidget(layout->count() - 2, layers_frame);
 
     connect(ui_->a_hide_button, &QPushButton::clicked,
         this, &MainWindow::ApproximationHideButton);

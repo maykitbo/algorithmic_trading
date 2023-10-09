@@ -35,7 +35,8 @@ void Frame::SetStyles()
 {
     setStyleSheet("background-color: " + background_->GetColor().name() +
         "; color: " + background_->GetTextPen().color().name() +
-        "; border: 1px solid " + background_->GetColor().lighter(200).name() + ";");
+        "; border: 1px solid " + background_->GetColor().lighter(200).name() +
+        "; Graph::Frame { background-color: " + background_->GetColor().name() + "; }");
 }
 
 void Frame::Hide()
@@ -135,6 +136,7 @@ void Frame::AddLayer(PainterFrame *ptr, bool points, bool removeable)
         layout_->removeWidget(sender);
         delete sender;
         ProcessMinMax();
+        Draw();
         emit GraphRemoved();
         emit ReDraw();
     });
@@ -166,7 +168,7 @@ void Frame::ProcessMinMax()
 
 void Frame::Clear()
 {
-    while (layout_->count() > 2)
+    while (layout_->count() > 1)
     {
         PainterFrame *layer = dynamic_cast<PainterFrame*>(layout_->itemAt(1)->widget());
         if (layer != nullptr)

@@ -48,47 +48,49 @@
     <number>4</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <property name="leftMargin">
-      <number>4</number>
-     </property>
-     <property name="rightMargin">
-      <number>4</number>
-     </property>
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Graph</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="save_button">
-       <property name="text">
-        <string>Save</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="hide_button">
-       <property name="minimumSize">
-        <size>
-         <width>25</width>
-         <height>25</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>25</width>
-         <height>25</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>-</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QFrame" name="top_frame">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="leftMargin">
+       <number>4</number>
+      </property>
+      <property name="rightMargin">
+       <number>4</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Graph</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="save_button">
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="hide_button">
+        <property name="minimumSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>-</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <widget class="QWidget" name="widget" native="true"/>

@@ -65,11 +65,11 @@ void Facade::InterpolationClear()
 std::pair<bool, Points> Facade::ApproximationFile(const std::string &filename)
 {
     try {
-        Points data = ParserCsv::Parse(filename);
+        PointsWeights data = ParserCsv::ParseWeights(filename);
         RemoveApproximation();
         approximation_data_ = Convert::ToDec(data);
         least_squares_ = new LeastSquares(approximation_data_);
-        return {true, std::move(data)};
+        return {true, std::move(data.first)};
     } catch (const std::exception &e) {
         std::cout << e.what() << '\n';
         return {false, Points()};
@@ -84,5 +84,6 @@ Points Facade::LeastSquaresData(unsigned points, unsigned degree)
 
 void Facade::ApproximationClear()
 {
-    approximation_data_.clear();
+    approximation_data_.first.clear();
+    approximation_data_.second.clear();
 }

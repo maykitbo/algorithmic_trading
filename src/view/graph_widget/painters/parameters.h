@@ -4,6 +4,7 @@
 #include <QDateTime>
 #include <limits>
 #include <QPointF>
+#include <math.h>
 
 #include <iostream>
 

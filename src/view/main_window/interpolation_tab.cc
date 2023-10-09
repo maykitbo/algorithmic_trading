@@ -2,7 +2,6 @@
 
 using namespace s21;
 
-
 void MainWindow::InterpolationInit()
 {
     ui_->i_add_graph_frame->setEnabled(false);
@@ -16,8 +15,9 @@ void MainWindow::InterpolationInit()
 
     auto layers_frame = ui_->i_graph_widget->DetachFrame();
     layers_frame->setParent(ui_->i_set_frame);
+    layers_frame->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     QVBoxLayout *layout = static_cast<QVBoxLayout*>(ui_->i_set_frame->layout());
-    layout->insertWidget(layout->count() - 2, layers_frame, 2);
+    layout->insertWidget(layout->count() - 2, layers_frame);
     
 
     connect(ui_->i_hide_button, &QPushButton::clicked,

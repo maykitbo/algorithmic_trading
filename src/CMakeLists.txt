@@ -12,11 +12,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
-# set(CMAKE_CXX_FLAGS "-g")
-
-
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(SOURCES
     main.cc
@@ -25,9 +22,9 @@ set(SOURCES
     view/main_window/approximation_tab.cc
     common/data_struct.cc
     facade/facade.cc
-    algorithms/interpolation/cubic_spline.cc
-    algorithms/interpolation/newton_polynomial.cc
-    algorithms/approximation/least_squares.cc
+    algorithms/cubic_spline/cubic_spline.cc
+    algorithms/newton_polynomial/newton_polynomial.cc
+    algorithms/least_squares/least_squares.cc
 )
 
 set(HEADERS
@@ -35,9 +32,9 @@ set(HEADERS
     view/main_window/main_window.h
     common/data_struct.h
     facade/facade.h
-    algorithms/interpolation/cubic_spline.h
-    algorithms/interpolation/newton_polynomial.h
-    algorithms/approximation/least_squares.h
+    algorithms/cubic_spline/cubic_spline.h
+    algorithms/newton_polynomial/newton_polynomial.h
+    algorithms/least_squares/least_squares.h
 )
 
 set(UI

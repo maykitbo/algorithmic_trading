@@ -474,35 +474,25 @@ void Matrix<T>::Inverse(const Matrix &a, Matrix &c) {
     throw std::runtime_error("Matrix::Inverse: incorrect sizes");
   }
 
-  // Check if the matrix is invertible by calculating its determinant
   T det = Determinant(a);
   if (det == 0) {
     throw std::runtime_error("Matrix::Inverse: matrix is singular (non-invertible)");
   }
 
-  int n = a.rows_; // Assuming square matrix
+  int n = a.rows_;
 
-  // Create a matrix of minors
   Matrix<T> minors(n, n);
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
-      // Calculate the minor matrix by removing row i and column j from a
       Matrix<T> minor = Minor(a, i, j);
       
-      // Calculate the determinant of the minor
       T minor_det = Determinant(minor);
       
-      // Calculate the cofactor and assign it to the minors matrix
       minors(i, j) = (i + j) % 2 == 0 ? minor_det : -minor_det;
     }
   }
-
-  // Calculate the adjugate matrix by transposing the minors matrix
-  Matrix<T> adjugate = Transpose(minors);
-
-  // Calculate the inverse by dividing the adjugate by the determinant
-  // c = adjugate / det;
-  Divide(adjugate, c, det);
+  Matrix<T> adj = Transpose(minors);
+  Divide(adj, c, det);
 }
 
 template<class T>

@@ -12,10 +12,10 @@ namespace s21 {
 class LeastSquares
 {
     public:
-        LeastSquares(const PointsDec &points);
+        LeastSquares(const PointsWeightsDec &points);
         PointsDec Solve(unsigned points, unsigned degree);
 
-        static PointsDec Solve(const PointsDec &points, unsigned degree, unsigned points_count)
+        static PointsDec Solve(const PointsWeightsDec &points, unsigned degree, unsigned points_count)
         {
             LeastSquares a(points);
             return a.Solve(points_count, degree);
@@ -24,11 +24,15 @@ class LeastSquares
     private:
 
         using matrix = Matrix<Real>;
-        const PointsDec &points_;
+        const PointsWeightsDec &points_;
         unsigned degree_;
-        matrix coef_;
+        // matrix coef_;
+        std::vector<Real> coef_;
 
         bool CreatePolynomial(unsigned degree);
+
+        void MulXTW2X(const matrix &X, matrix &A);
+        void MulCW2Y(const matrix &C);
 };
 
 

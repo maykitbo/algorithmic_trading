@@ -9,7 +9,7 @@ class NewtonPolynomial {
     public:
         NewtonPolynomial(const PointsDec &points);
         PointsDec Solve(unsigned N, unsigned degree);
-        Real Calc(double time, unsigned degree);
+        Real Calc(Real time, unsigned degree);
 
 
         static PointsDec Solve(const PointsDec &points, unsigned degree, unsigned N)
@@ -17,7 +17,7 @@ class NewtonPolynomial {
             NewtonPolynomial np(points);
             return np.Solve(N, degree);
         }
-        static Real Calc(const PointsDec &points, unsigned degree, double time)
+        static Real Calc(const PointsDec &points, unsigned degree, Real time)
         {
             NewtonPolynomial np(points);
             return np.Calc(time, degree);

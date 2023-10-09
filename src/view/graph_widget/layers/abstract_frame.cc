@@ -16,6 +16,7 @@ void AbstractFrame::LineStyleHelper(QToolButton *button, QSpinBox *spin, QComboB
 void AbstractFrame::PointStyleHelper(QToolButton *button, QSpinBox *spin, QComboBox *box, QPen *pen)
 {
     ToolAndSpinHelper(button, spin, pen);
+    pen->setCapStyle(Qt::RoundCap);
     box->addItems({"Circle", "Square"});
     connect(box, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [this, pen] (int index)
     {

@@ -75,6 +75,7 @@ void PainterFrame::Init()
     LineStyleHelper(ui_->line_tool, ui_->line_spin, ui_->line_box, &graph_pen_);
     PointStyleHelper(ui_->points_tool, ui_->points_spin, ui_->points_box, &points_pen_);
 
+    ui_->points_radio->setChecked(draw_points_);
     VisibleHelper(ui_->line_radio, &draw_lines_);
     VisibleHelper(ui_->points_radio, &draw_points_);
 }

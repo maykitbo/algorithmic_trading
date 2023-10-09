@@ -5,9 +5,9 @@ using namespace s21;
 CubicSpline::CubicSpline(const PointsDec &points)
         : points_(points)
         , size_(points.size())
-        , b_(size_ - 1, 0.0)
+        , b_(size_, 0.0)
         , c_(size_, 0.0)
-        , d_(size_ - 1, 0.0)
+        , d_(size_, 0.0)
 {
     if (size_ < 3) {
         std::cerr << "Invalid points count\n";
@@ -51,8 +51,7 @@ PointsDec CubicSpline::Solve(unsigned N)
     {
         return points_;
     }
-    PointsDec spline_points;
-    spline_points.reserve(N);
+    PointsDec spline_points(N);
 
     Real x = points_[0].first;
     Real step = (points_.back().first - points_.front().first) / (Real)(N - 1);
@@ -61,8 +60,9 @@ PointsDec CubicSpline::Solve(unsigned N)
         Real x_i = (Real)i * (Real)(size_ - 1) / (Real)(N - 1);
         int j = (int)x_i;
         Real dx = x_i - j;
+        
         Real y_i = points_[j].second + b_[j] * dx + c_[j] * dx * dx + d_[j] * dx * dx * dx;
-        spline_points.push_back({x, y_i});
+        spline_points[i] = {x, y_i};
     }
 
     return spline_points;

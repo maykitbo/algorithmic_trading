@@ -39,7 +39,7 @@
     <item>
      <widget class="QTabWidget" name="tab">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="interpolation">
        <property name="sizePolicy">
@@ -458,14 +458,38 @@
                </layout>
               </item>
               <item>
-               <widget class="QPushButton" name="approximate_button">
+               <widget class="QPushButton" name="weight_button">
                 <property name="styleSheet">
                  <string notr="true">background-color: rgb(57, 61, 117);</string>
                 </property>
                 <property name="text">
-                 <string>Approximate</string>
+                 <string>Enter Weights</string>
                 </property>
                </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_11">
+                <item>
+                 <widget class="QPushButton" name="approximate_button">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(57, 61, 117);</string>
+                  </property>
+                  <property name="text">
+                   <string>Approximate</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="part5_button">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(57, 61, 117);</string>
+                  </property>
+                  <property name="text">
+                   <string>Part 5</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>
