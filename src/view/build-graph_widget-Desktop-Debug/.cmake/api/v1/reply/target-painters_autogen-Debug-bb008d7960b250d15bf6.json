@@ -1,0 +1,58 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"painters/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"id" : "painters_autogen::@0615909af2095aa6a527",
+	"isGeneratorProvided" : true,
+	"name" : "painters_autogen",
+	"paths" : 
+	{
+		"build" : "painters",
+		"source" : "painters"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/home/alexey/projects/algorithmic_trading/src/view/build-graph_widget-Desktop-Debug/painters/CMakeFiles/painters_autogen",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/home/alexey/projects/algorithmic_trading/src/view/build-graph_widget-Desktop-Debug/painters/CMakeFiles/painters_autogen.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

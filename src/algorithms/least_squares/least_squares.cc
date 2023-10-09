@@ -2,30 +2,27 @@
 
 using namespace s21;
 
-LeastSquares::LeastSquares(const PointsWeightsDec &points)
+LeastSquares::LeastSquares(const PointsDec &points)
     : points_(points)
     , degree_(0)
+    , weights_(points_.size())
     {}
 
 void LeastSquares::MulXTW2X(const matrix &X, matrix &A)
 {
     const Real *x = X.Data();
     Real *a = A.Data();
-    const Real *w = points_.second.data();
-    unsigned I = X.GetCols();
-    unsigned J = X.GetCols();
     unsigned K = X.GetRows();
-    for (unsigned i = 0; i < I; ++i)
+    for (unsigned i = 0; i < degree_; ++i)
     {
-        for (unsigned j = 0; j < J; ++j)
+        for (unsigned j = 0; j < degree_; ++j)
         {
             Real sum = 0.0;
             for (unsigned k = 0; k < K; ++k)
             {
-                sum += x[k * I + i] * x[k * J + j] * w[k] * w[k];
-                // sum += x[i * K + k] * x[k * K + j] * w[k] * w[k];
+                sum += x[k * degree_ + i] * x[k * degree_ + j] * weights_[k];
             }
-            a[i * J + j] = sum;
+            a[i * degree_ + j] = sum;
         }
     }
 }
@@ -34,36 +31,38 @@ void LeastSquares::MulCW2Y(const matrix &C)
 {
     const Real *c = C.Data();
     Real *coef = coef_.data();
-    const Real *w = points_.second.data();
-    auto y = points_.first.data();
-    unsigned I = C.GetRows();
+    auto y = points_.data();
     unsigned K = C.GetCols();
-    for (unsigned i = 0; i < I; ++i)
+    for (unsigned i = 0; i < degree_; ++i)
     {
         Real sum = 0.0;
         for (unsigned k = 0; k < K; ++k)
         {
-            sum += c[i * K + k] * y[k].second * w[k] * w[k];
+            sum += c[i * K + k] * y[k].second * weights_[k];
         }
         coef[i] = sum;
     }
 }
 
-bool LeastSquares::CreatePolynomial(unsigned degree)
+bool LeastSquares::CreatePolynomial(unsigned degree, const WeightsDec &weights)
 {
-    if (degree_ == degree + 1) {
+    if (degree_ == degree + 1 && weights_ == weights) {
         return true;
     }
     degree_ = degree + 1;
-    if (degree_ >= points_.first.size() - 1 || degree_ < 2) {
+    if (degree_ >= points_.size() - 1 || degree_ < 2) {
         std::cerr << "Invalid degree: " << degree_ << '\n';
         return false;
     }
-    unsigned n = points_.first.size();
+
+    unsigned n = points_.size();
+
+    std::transform(weights.begin(), weights.end(), weights_.begin(),
+        [](Real x) { return x * x; });
 
     coef_.resize(degree_, 0.0);
     matrix X(n, degree_, [&] (auto i, auto j)
-        { return boost::multiprecision::pow(points_.first[i].first, j); });
+        { return boost::multiprecision::pow(points_[i].first, j); });
 
     // coef_ = (X^t * W^2 * X)^-1 * X^t * W^2 * Y
     // A = X^t * W^2 * X
@@ -81,17 +80,17 @@ bool LeastSquares::CreatePolynomial(unsigned degree)
     return true;
 }
 
-PointsDec LeastSquares::Solve(unsigned points_count, unsigned degree)
+PointsDec LeastSquares::Solve(unsigned points_count, unsigned degree, const WeightsDec &weights)
 {
-    if (points_count < 0 || !CreatePolynomial(degree)) {
-        return points_.first;
+    if (points_count < 0 || !CreatePolynomial(degree, weights)) {
+        return points_;
     }
 
-    unsigned n = (int)points_.first.back().first - (int)points_.first.front().first + points_count;
+    unsigned n = (int)points_.back().first - (int)points_.front().first + points_count;
 
     PointsDec interpolated(n);
 
-    Real x = points_.first.front().first;
+    Real x = points_.front().first;
 
     for (int i = 0; i < n; ++i, x += 1.0) {
         Real y = coef_[0];

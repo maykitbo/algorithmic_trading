@@ -25,6 +25,7 @@ set(SOURCES
     algorithms/cubic_spline/cubic_spline.cc
     algorithms/newton_polynomial/newton_polynomial.cc
     algorithms/least_squares/least_squares.cc
+    view/main_window/weight_dialog.cc
 )
 
 set(HEADERS
@@ -35,6 +36,7 @@ set(HEADERS
     algorithms/cubic_spline/cubic_spline.h
     algorithms/newton_polynomial/newton_polynomial.h
     algorithms/least_squares/least_squares.h
+    view/main_window/weight_dialog.h
 )
 
 set(UI

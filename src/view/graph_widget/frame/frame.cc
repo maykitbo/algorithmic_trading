@@ -98,6 +98,28 @@ void Frame::ForVisible(const std::function<void(PainterFrame*)> &func)
     });
 }
 
+PainterFrame *Frame::operator[](unsigned index)
+{
+    if (index >= layout_->count() - 1)
+        return nullptr;
+    return dynamic_cast<PainterFrame*>(layout_->itemAt(index + 1)->widget());
+}
+
+void Frame::Remove(unsigned index)
+{
+    PainterFrame *layer = operator[](index);
+    if (layer == nullptr)
+        return;
+    layout_->removeWidget(layer);
+    delete layer;
+    --visible_count_;
+    ProcessMinMax();
+    Draw();
+    // emit GraphRemoved();
+    emit ReDraw();
+}
+
+
 void Frame::AddGraph(const QString &name, const Graph::data_t &data, bool points, bool removeable)
 {
     AddLayer(new PainterFrame(p_, name, data, CreatePen(), this), points, removeable);

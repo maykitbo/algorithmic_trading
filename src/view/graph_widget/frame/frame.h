@@ -34,6 +34,9 @@ class Frame : public QWidget
         void ForVisible(const std::function<void(PainterFrame*)> &func);
         void ForGraphLayers(const std::function<void(PainterFrame*)> &func);
 
+        PainterFrame *operator[](unsigned index);
+        void Remove(unsigned index);
+
         void Clear();
         void Resize();
 

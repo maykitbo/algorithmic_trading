@@ -58,7 +58,7 @@ void ParserCsv::ParseDC(Points &points, std::ifstream &file)
         if (sscanf(line.c_str(), "%4d-%2d-%2d,%lf",
                 &tm.tm_year, &tm.tm_mon, &tm.tm_mday, &point.second) != 4)
         {
-            std::cerr << "Error: Unable to parse date string " << line << '\n';
+            std::cerr << "ParserCsv Warning. Incorrect line will be skipped: " << line << '\n';
             continue;
         }
         tm.tm_year -= 1900;
@@ -81,7 +81,7 @@ void ParserCsv::ParseDCW(PointsWeights &points, std::ifstream &file)
                 &tm.tm_year, &tm.tm_mon, &tm.tm_mday, &point.second, &weight);
         if (res != 5 || weight <= 0.0)
         {
-            std::cerr << "Error: Unable to parse date string " << line << '\n';
+            std::cerr << "ParserCsv Warning. Incorrect line will be skipped: " << line << '\n';
             continue;
         }
         tm.tm_year -= 1900;

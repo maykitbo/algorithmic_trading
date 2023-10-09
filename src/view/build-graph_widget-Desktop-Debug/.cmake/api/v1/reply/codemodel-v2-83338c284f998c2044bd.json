@@ -1,0 +1,122 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						2,
+						3
+					]
+				},
+				{
+					"build" : "painters",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-painters-Debug-df1000344447d463bf99.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "painters",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "widget_frame",
+					"targetIndexes" : 
+					[
+						2,
+						3
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "painters",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "painters::@0615909af2095aa6a527",
+					"jsonFile" : "target-painters-Debug-3824064428e5db1a4286.json",
+					"name" : "painters",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "painters_autogen::@0615909af2095aa6a527",
+					"jsonFile" : "target-painters_autogen-Debug-bb008d7960b250d15bf6.json",
+					"name" : "painters_autogen",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "widget_frame::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-widget_frame-Debug-564b31dd3b9c012bab31.json",
+					"name" : "widget_frame",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "widget_frame_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-widget_frame_autogen-Debug-bbec7c00c0357753f320.json",
+					"name" : "widget_frame_autogen",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/alexey/projects/algorithmic_trading/src/view/build-graph_widget-Desktop-Debug",
+		"source" : "/home/alexey/projects/algorithmic_trading/src/view/graph_widget"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

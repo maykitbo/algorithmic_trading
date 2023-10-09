@@ -86,18 +86,17 @@ void FileTest::LeastSquares()
 {
     for (int N = 0; N < points_.size(); ++N)
     {
-        for (int degree = 1; degree < 3; ++degree)
+        for (int degree = 1; degree < 6; ++degree)
         {
-            PointsDec result = LeastSquares::Solve(points_w_, degree, N);
+            PointsDec result = LeastSquares::Solve(points_, degree, N, points_w_.second);
             for (unsigned i = 0; i < result.size() - 1; ++i)
             {
-                // ExpectedNumber(result[i].second);
-                // EXPECT_EQ(result[i + 1].first - result[i].first, 1);
+                ExpectedNumber(result[i].second);
+                EXPECT_EQ(result[i + 1].first - result[i].first, 1);
             }
-            // ExpectedNumber(result.back().second);
-            // EXPECT_EQ(result.front().first, points_.front().first);
+            ExpectedNumber(result.back().second);
+            EXPECT_EQ(result.front().first, points_.front().first);
         }
-        break;
     }
 }
 

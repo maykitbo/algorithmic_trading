@@ -18,8 +18,9 @@ class Facade {
         void InterpolationClear();
         std::pair<double, double> InterpolationClac(double time, unsigned degree);
 
-        std::pair<bool, Points> ApproximationFile(const std::string &filename);
+        std::pair<bool, PointsWeights> ApproximationFile(const std::string &filename);
         // Points &ApproximationRawData();
+        Points LeastSquaresData(unsigned points, unsigned degree, const Weights &weights);
         Points LeastSquaresData(unsigned points, unsigned degree);
         void ApproximationClear();
     

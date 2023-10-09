@@ -19,6 +19,10 @@ MainWindow::MainWindow(Facade &facade, QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui_;
+    if (weight_dialog_ != nullptr)
+    {
+        delete weight_dialog_;
+    }
 }
 
 QString MainWindow::FileNameString(const QString &name, unsigned size)

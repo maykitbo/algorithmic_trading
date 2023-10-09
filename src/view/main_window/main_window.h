@@ -6,8 +6,9 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QKeyEvent>
+#include "weight_dialog.h"
 
-#include <facade.h>
+#include "facade.h"
 
 
 
@@ -44,6 +45,8 @@ class MainWindow : public QMainWindow
         void ApproximationFileButton();
         void ApproximateButton();
         void ApproximationGraphRemove();
+        void ApproximateWeightButton();
+        void Part5Button();
     
     protected:
         void keyPressEvent(QKeyEvent *event) override;
@@ -61,7 +64,7 @@ class MainWindow : public QMainWindow
         void InterpolationInit();
         void ApproximationInit();
         void InterpolationRawData(Points &data);
-        void ApproximationRawData(Points &data);
+        void ApproximationRawData(PointsWeights &data);
 
         void InterpolationFileRead(const QString &filename);
         void ApproximationFileRead(const QString &filename);
@@ -76,6 +79,8 @@ class MainWindow : public QMainWindow
         unsigned a_graphs_{0};
         QString a_filename_{};
         unsigned a_max_graphs_{5};
+
+        WeightDialog *weight_dialog_{nullptr};
 
         void InterpolationClearHelper();
         QString FileNameString(const QString &name, unsigned size);
