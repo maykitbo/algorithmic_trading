@@ -1,2 +1,0 @@
-/usr/bin/ar qc libwidget_frame.a CMakeFiles/widget_frame.dir/widget_frame_autogen/mocs_compilation.cpp.o CMakeFiles/widget_frame.dir/frame/frame.cc.o CMakeFiles/widget_frame.dir/layers/background_frame.cc.o CMakeFiles/widget_frame.dir/layers/painter_frame.cc.o CMakeFiles/widget_frame.dir/layers/abstract_frame.cc.o CMakeFiles/widget_frame.dir/widget_frame.cc.o CMakeFiles/widget_frame.dir/widget_frame_autogen/EWIEGA46WW/qrc_resources.cpp.o
-/usr/bin/ranlib libwidget_frame.a
