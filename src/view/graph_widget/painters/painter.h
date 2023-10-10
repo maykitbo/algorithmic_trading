@@ -31,8 +31,8 @@ class Painter : public AbstractPainter {
 
   void Draw() override;
 
-  void DrawingPoints(bool draw_points);
-  void DrawingLines(bool draw_lines);
+  virtual void DrawingPoints(bool draw_points);
+  virtual void DrawingLines(bool draw_lines);
   void SetPointsPen(QPen pen);
   void SetGraphPen(QPen pen);
   void SetMaxPointOnOneGraph(unsigned max_point_on_one_graph);

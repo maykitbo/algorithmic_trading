@@ -76,7 +76,7 @@ void WidgetFrame::wheelEvent(QWheelEvent *event) {
     ++scale_;
     scale_factor = wheel_scale_factor_;
   } else {
-    if (scale_ == 0) {
+    if (scale_ <= 0) {
       return QWidget::wheelEvent(event);
     }
     --scale_;

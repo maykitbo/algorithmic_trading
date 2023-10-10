@@ -1,13 +1,30 @@
-.PHONY: all clean test lint get_lint dvi dist
+.PHONY: all clean test lint get_lint dvi dist install uninstall run
 
 SRC := $(shell find . -name "*.cc")
 HEADERS := $(shell find . -name "*.h")
 
+APP_NAME = algorithmic_trading
 
-all:
+OS := $(shell uname -s)
+ifeq ($(OS), Linux)
+	OPEN = ./build/$(APP_NAME)
+endif
+ifeq ($(OS), Darwin)
+	OPEN = open build/$(APP_NAME).app
+endif
+
+
+all: install run
+
+install:
 	cmake -S . -B build
-	make -C build -j4
-	./build/algorithmic_trading
+	make -C build
+
+uninstall:
+	rm -rf build
+
+run:
+	./build/$(APP_NAME)
 
 test:
 	make -C tests all
@@ -26,8 +43,7 @@ dvi:
 dist:
 	tar czf ../dist.tar *
 
-clean:
-	rm -rf build
+clean: uninstall
 	rm -rf CMakeLists.txt.user
 	make -C tests clean
 	rm -rf ../dist.tar

@@ -75,7 +75,6 @@ void PainterFrame::Init() {
   PointStyleHelper(ui_->points_tool, ui_->points_spin, ui_->points_box,
                    &points_pen_);
 
-  ui_->points_radio->setChecked(draw_points_);
   VisibleHelper(ui_->line_radio, &draw_lines_);
   VisibleHelper(ui_->points_radio, &draw_points_);
 }
@@ -89,3 +88,16 @@ void PainterFrame::SetRemoveable(bool removeable) {
 bool PainterFrame::Visible() const { return ui_->visible_radio->isChecked(); }
 
 PainterFrame::~PainterFrame() { delete ui_; }
+
+
+void PainterFrame::DrawingPoints(bool draw_points)
+{
+  draw_points_ = draw_points;
+  ui_->points_radio->setChecked(draw_points_);
+}
+
+void PainterFrame::DrawingLines(bool draw_lines)
+{
+  draw_lines_ = draw_lines;
+  ui_->line_radio->setChecked(draw_lines_);
+}

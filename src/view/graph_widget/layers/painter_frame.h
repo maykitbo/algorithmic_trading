@@ -30,6 +30,9 @@ class PainterFrame : public AbstractFrame, public Painter {
   void AddData(const data_t &data);
   void AddData(const std::pair<double, double> &data);
 
+  void DrawingPoints(bool draw_points) override;
+  void DrawingLines(bool draw_lines) override;
+
  signals:
   void Removed();
   void ReDraw();
