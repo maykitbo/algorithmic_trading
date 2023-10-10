@@ -43,8 +43,6 @@ CubicSpline::CubicSpline(const PointsDec &points)
     }
 }
 
-
-
 PointsDec CubicSpline::Solve(unsigned N)
 {
     if (N <= size_ || size_ < 2)
@@ -54,10 +52,11 @@ PointsDec CubicSpline::Solve(unsigned N)
     PointsDec spline_points(N);
 
     Real x = points_[0].first;
+    Real k = (Real)(size_ - 1) / (Real)(N - 1);
     Real step = (points_.back().first - points_.front().first) / (Real)(N - 1);
     for (unsigned i = 0; i < N; ++i, x += step)
     {
-        Real x_i = (Real)i * (Real)(size_ - 1) / (Real)(N - 1);
+        Real x_i = (Real)i * k;
         int j = (int)x_i;
         Real dx = x_i - j;
         
@@ -81,4 +80,16 @@ Real CubicSpline::Calc(Real time)
     Real y_i = points_[j].second + b_[j] * dx + c_[j] * dx * dx + d_[j] * dx * dx * dx;
     return y_i;
 
+}
+
+PointsDec CubicSpline::Solve(const PointsDec &points, unsigned int N)
+{
+    CubicSpline cs(points);
+    return cs.Solve(N);
+}
+
+Real CubicSpline::Calc(const PointsDec &points, Real time)
+{
+    CubicSpline cs(points);
+    return cs.Calc(time);
 }

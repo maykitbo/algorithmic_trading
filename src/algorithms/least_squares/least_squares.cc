@@ -103,3 +103,10 @@ PointsDec LeastSquares::Solve(unsigned points_count, unsigned degree, const Weig
     }
     return interpolated;
 }
+
+PointsDec LeastSquares::Solve(const PointsDec &points, unsigned degree,
+                unsigned points_count, const WeightsDec &weights)
+{
+    LeastSquares a(points);
+    return a.Solve(points_count, degree, weights);
+}

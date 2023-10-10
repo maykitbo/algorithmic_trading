@@ -24,6 +24,21 @@ MainWindow::~MainWindow()
     {
         delete weight_dialog_;
     }
+    for (auto &i : t_subj_spin_boxes_) {
+        if (i != nullptr) {
+            delete i;
+        }
+    }
+    for (auto &i : t_subj_labels_) {
+        if (i != nullptr) {
+            delete i;
+        }
+    }
+    for (auto &i : t_subj_layouts_) {
+        if (i != nullptr) {
+            delete i;
+        }
+    }
 }
 
 QString MainWindow::FileNameString(const QString &name, unsigned size)

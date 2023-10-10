@@ -76,18 +76,17 @@ class MainWindow : public QMainWindow
 
         bool i_hide_{false};
         unsigned i_graphs_{0};
-        // QString i_filename_{};
         unsigned i_max_graphs_{5};
 
         bool a_hide_{false};
         unsigned a_graphs_{0};
-        // QString a_filename_{};
         unsigned a_max_graphs_{5};
 
         bool t_hide_{false};
-        std::vector<QSpinBox*> t_subj_spin_boxes_{};
-        std::vector<QLabel*> t_subj_labels_{};
-        std::vector<QHBoxLayout*> t_subj_layouts_{};
+        unsigned t_size_{0};
+        std::list<QSpinBox*> t_subj_spin_boxes_{};
+        std::list<QLabel*> t_subj_labels_{};
+        std::list<QHBoxLayout*> t_subj_layouts_{};
 
         WeightDialog *weight_dialog_{nullptr};
 

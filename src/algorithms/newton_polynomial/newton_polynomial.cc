@@ -29,6 +29,7 @@ bool NewtonPolynomial::CreatePolynomial(unsigned degree)
         std::cerr << "Invalid degree\n";
         return false;
     }
+    coef_.clear();
     coef_.resize(size_ - degree_ + 1, std::vector<Real>(degree_, 0.0));
     for (int k = 1; k < degree_; ++k)
     {
@@ -110,4 +111,16 @@ Real NewtonPolynomial::Calc(Real time, unsigned degree)
         }
     }
     return std::numeric_limits<Real>::quiet_NaN();
+}
+
+PointsDec NewtonPolynomial::Solve(const PointsDec &points, unsigned degree, unsigned N)
+{
+    NewtonPolynomial np(points);
+    return np.Solve(N, degree);
+}
+
+Real NewtonPolynomial::Calc(const PointsDec &points, unsigned degree, Real time)
+{
+    NewtonPolynomial np(points);
+    return np.Calc(time, degree);
 }

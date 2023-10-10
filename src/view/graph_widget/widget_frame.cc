@@ -14,7 +14,8 @@ WidgetFrame::WidgetFrame(bool attach_frame, QWidget *parent)
     InitializeResources();
     connect(frame_, &Frame::ReDraw, this, [&] ()
     {
-        repaint();
+        // repaint();
+        update();
     });
     setMinimumHeight(min_height_);
     setMinimumWidth(min_width_);

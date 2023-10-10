@@ -10,18 +10,39 @@
 namespace s21 {
 
 
+/**
+ * @brief Class for solving approximation tasks using the Least Squares method.
+ * 
+ * This class provides methods to approximate a sequence of points using the Least Squares method.
+ */
 class LeastSquares
 {
     public:
+        /**
+         * @brief Constructs a LeastSquares object from a set of 2D points.
+         * 
+         * @param points A vector of 2D points. For more information, see the documentation for the PointsDec type.
+         */
         LeastSquares(const PointsDec &points);
+
+        /**
+         * @brief Solves the approximation problem and returns a vector of approximated points using the Least Squares method.
+         * 
+         * @param points Number of points to be approximated in the sequence.
+         * @param degree Degree of the polynomial used for approximation.
+         * @param weights A vector of arbitrary precision floating-point weights corresponding to input points.
+         * @return Vector of approximated points PointsDec. The size of the vector
+         *         will be greater than or equal to 'points.size() + count'.
+         */
         PointsDec Solve(unsigned points, unsigned degree, const WeightsDec &weights);
 
+        /**
+         * @brief Static method to solve the approximation problem and return a vector of approximated points using the Least Squares method.
+         * 
+         * See the documentation for the Solve method for more information.
+         */
         static PointsDec Solve(const PointsDec &points, unsigned degree,
-                unsigned points_count, const WeightsDec &weights)
-        {
-            LeastSquares a(points);
-            return a.Solve(points_count, degree, weights);
-        }
+                unsigned points_count, const WeightsDec &weights);
     
     private:
 
