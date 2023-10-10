@@ -57,7 +57,7 @@ void MainWindow::Part5Button()
     }
     while (a_graphs_ > 1)
     {
-        ui_->a_graph_widget->GetFrame()->Remove(1);
+        ui_->a_graph_widget->Remove(1);
         --a_graphs_;
     }
     ui_->approximate_frame->setEnabled(true);
@@ -102,7 +102,7 @@ void MainWindow::ApproximationRawData(PointsWeights &data)
     a_graphs_ = 1;
     ui_->a_graph_widget->Clear();
     ui_->a_graph_widget->AddGraph(data.first, "Base", true, false);
-    ui_->a_file_info_lable->setText(FileNameString(i_filename_, data.first.size()));
+    // ui_->a_file_info_lable->setText(FileNameString(a_filename_, data.first.size()));
     ui_->a_clear_button->setEnabled(true);
     ui_->approximate_frame->setEnabled(true);
     ui_->weight_button->setEnabled(true);
@@ -122,7 +122,8 @@ void MainWindow::ApproximationFileRead(const QString &filename)
         QMessageBox::critical(this, "Error", "Incorrect file");
         return;
     }
-    a_filename_ = filename;
+    // a_filename_ = filename;
+    ui_->a_file_info_lable->setText(FileNameString(filename, result.second.first.size()));
     ApproximationRawData(result.second);
 }
 

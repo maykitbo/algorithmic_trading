@@ -27,6 +27,12 @@ class Painter : public AbstractPainter
             const QPen &graph_pen = QPen(Qt::black, 2),
             QImage::Format format = QImage::Format_ARGB32);
         
+
+        void AddData(const data_t &data);
+        void AddData(data_t &&data);
+        void AddData(const std::pair<double, double> &data);
+        void AddData(std::pair<double, double> &&data);
+        
         Painter(const Painter &other) = default;
         Painter(Painter &&other) = default;
         virtual ~Painter() = default;
@@ -38,7 +44,6 @@ class Painter : public AbstractPainter
         void SetPointsPen(QPen pen);
         void SetGraphPen(QPen pen);
         void SetMaxPointOnOneGraph(unsigned max_point_on_one_graph);
-        // void SetNameFormat(const std::function<QString(QString, unsigned)> &name_format);
         
         const QPen &GetGraphPen() const noexcept;
         const QPen &GetPointsPen() const noexcept;

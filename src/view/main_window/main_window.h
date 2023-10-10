@@ -6,6 +6,8 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QKeyEvent>
+#include <QEventLoop>
+
 #include "weight_dialog.h"
 
 #include "facade.h"
@@ -26,10 +28,6 @@ class MainWindow : public QMainWindow
     public:
         MainWindow(Facade &facade, QWidget *parent = nullptr);
         ~MainWindow();
-    
-    // public slots:
-    //     void ICSData(Points *data);
-    //     void IRawData(Points *data);
 
     private slots:
         void InterpolationHideButton();
@@ -47,14 +45,18 @@ class MainWindow : public QMainWindow
         void ApproximationGraphRemove();
         void ApproximateWeightButton();
         void Part5Button();
+
+        void TimeTestHideButton();
+        void TimeTestClearButton();
+        void TimeTestFileButton();
+        void TimeTestStartButton();
+        void CSSubjButton();
+        void SubjMinusButton();
+        void SubjPlusButton();
+
     
     protected:
         void keyPressEvent(QKeyEvent *event) override;
-
-    // signals:
-    //     void IClear();
-    //     void IFile(QString file_name);
-    //     void ICSPoints(int points);
 
     private:
         Ui::MainWindow *ui_;
@@ -62,23 +64,30 @@ class MainWindow : public QMainWindow
         Facade &facade_;
         
         void InterpolationInit();
-        void ApproximationInit();
         void InterpolationRawData(Points &data);
-        void ApproximationRawData(PointsWeights &data);
-
         void InterpolationFileRead(const QString &filename);
+
+        void ApproximationInit();
+        void ApproximationRawData(PointsWeights &data);
         void ApproximationFileRead(const QString &filename);
+
+        void TimeTestInit();
 
 
         bool i_hide_{false};
         unsigned i_graphs_{0};
-        QString i_filename_{};
+        // QString i_filename_{};
         unsigned i_max_graphs_{5};
 
         bool a_hide_{false};
         unsigned a_graphs_{0};
-        QString a_filename_{};
+        // QString a_filename_{};
         unsigned a_max_graphs_{5};
+
+        bool t_hide_{false};
+        std::vector<QSpinBox*> t_subj_spin_boxes_{};
+        std::vector<QLabel*> t_subj_labels_{};
+        std::vector<QHBoxLayout*> t_subj_layouts_{};
 
         WeightDialog *weight_dialog_{nullptr};
 

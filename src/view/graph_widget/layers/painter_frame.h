@@ -33,11 +33,15 @@ class PainterFrame : public AbstractFrame, public Painter
         bool Visible() const;
         QLabel *NameLabel();
         void SetRemoveable(bool removeable);
-    
+
+        void AddData(const data_t &data);
+        void AddData(const std::pair<double, double> &data);
+
     signals:
         void Removed();
         void ReDraw();
         void ChangeVisible(bool visible);
+        void MinMaxUpdate();
 
     private:
         Ui::PainterFrame *ui_;

@@ -20,11 +20,13 @@ set(SOURCES
     view/main_window/main_window.cc
     view/main_window/interpolation_tab.cc
     view/main_window/approximation_tab.cc
+    view/main_window/timetest_tab.cc
     common/data_struct.cc
     facade/facade.cc
     algorithms/cubic_spline/cubic_spline.cc
     algorithms/newton_polynomial/newton_polynomial.cc
     algorithms/least_squares/least_squares.cc
+    algorithms/interpolation_time/compare.cc
     view/main_window/weight_dialog.cc
 )
 
@@ -36,6 +38,7 @@ set(HEADERS
     algorithms/cubic_spline/cubic_spline.h
     algorithms/newton_polynomial/newton_polynomial.h
     algorithms/least_squares/least_squares.h
+    algorithms/interpolation_time/compare.h
     view/main_window/weight_dialog.h
 )
 

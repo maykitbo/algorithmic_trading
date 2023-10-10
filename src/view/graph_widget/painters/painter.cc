@@ -58,6 +58,11 @@ void Painter::MinMax()
 
 void Painter::Draw()
 {
+    if (!p_.Valid())
+    {
+        std::cerr << "Graph::Painter::Draw: Parameters is not valid\n";
+        return;
+    }
     image_.fill(Qt::transparent);
 
     std::vector<QPointF> points;

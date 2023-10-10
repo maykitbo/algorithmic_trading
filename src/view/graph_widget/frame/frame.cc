@@ -77,6 +77,7 @@ void Frame::Draw()
         background_->SetShowText(false);
         background_->Draw();
     }
+    emit ReDraw();
 }
 
 void Frame::ForGraphLayers(const std::function<void(PainterFrame*)> &func)
@@ -116,7 +117,7 @@ void Frame::Remove(unsigned index)
     ProcessMinMax();
     Draw();
     // emit GraphRemoved();
-    emit ReDraw();
+    // emit ReDraw();
 }
 
 
@@ -128,6 +129,11 @@ void Frame::AddGraph(const QString &name, const Graph::data_t &data, bool points
 void Frame::AddGraph(const QString &name, Graph::data_t &&data, bool points, bool removeable)
 {
     AddLayer(new PainterFrame(p_, name, data, CreatePen(), this), points, removeable);
+}
+
+void Frame::AddGraph(const QString &name, bool points, bool removeable)
+{
+    AddLayer(new PainterFrame(p_, name, CreatePen(), this), points, removeable);
 }
 
 QPen Frame::CreatePen()
@@ -145,7 +151,6 @@ void Frame::AddLayer(PainterFrame *ptr, bool points, bool removeable)
     ptr->NameLabel()->installEventFilter(this);
 
     ProcessMinMax();
-
     p_.SetFactors();
 
     ++visible_count_;
@@ -160,7 +165,7 @@ void Frame::AddLayer(PainterFrame *ptr, bool points, bool removeable)
         ProcessMinMax();
         Draw();
         emit GraphRemoved();
-        emit ReDraw();
+        // emit ReDraw();
     });
     connect(ptr, &PainterFrame::ReDraw, this, &Frame::ReDraw);
     connect(ptr, &PainterFrame::ChangeVisible, this, [&] (bool visible)
@@ -168,8 +173,16 @@ void Frame::AddLayer(PainterFrame *ptr, bool points, bool removeable)
         visible_count_ += visible ? 1 : -1;
         ProcessMinMax();
         Draw();
+        // emit ReDraw();
     });
-    emit ReDraw();
+    connect(ptr, &PainterFrame::MinMaxUpdate, this, [&] ()
+    {
+        ProcessMinMax();
+        p_.SetFactors();
+        Draw();
+        // emit ReDraw();
+    });
+    // emit ReDraw();
 }
 
 void Frame::ProcessMinMax()

@@ -28,6 +28,7 @@ class Frame : public QWidget
         Frame(Parameters &params, QWidget *parent = nullptr);
         void AddGraph(const QString &name, const data_t &data, bool points = true, bool removeable = true);
         void AddGraph(const QString &name, data_t &&data, bool points = true, bool removeable = true);
+        void AddGraph(const QString &name, bool points = true, bool removeable = true);
 
         BackgroundFrame *GetBackground() { return background_; }
         void Draw();

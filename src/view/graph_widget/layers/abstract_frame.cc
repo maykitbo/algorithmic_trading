@@ -75,6 +75,7 @@ void AbstractFrame::VisibleHelper(QRadioButton *radio, bool *visible)
 void AbstractFrame::HideAndSettingsHelper(QPushButton *button, QFrame *settings, QLabel *lable, const QColor &color)
 {
     settings->setVisible(false);
+    settings->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     settings->setStyleSheet("QFrame#settings_frame { border: 1px solid " + color.name() + "; }");
     lable->setStyleSheet("QLabel { color : " +color.name() + "; }");
     button->setText("+");

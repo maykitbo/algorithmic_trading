@@ -59,8 +59,8 @@ bool NewtonPolynomial::CreatePolynomial(unsigned degree)
 
 Real NewtonPolynomial::Interpolate(Real x_interpolated, unsigned k)
 {
-    unsigned n = coef_[k].size() - 1;
     auto &coef = coef_[k];
+    unsigned n = coef.size() - 1;
     Real result = coef[n];
     for (unsigned i = 1; i <= n; ++i)
     {
@@ -102,16 +102,11 @@ Real NewtonPolynomial::Calc(Real time, unsigned degree)
     {
         return std::numeric_limits<Real>::quiet_NaN();
     }
-    unsigned d = 0;
-    for (unsigned i = 0; i < size_ - 1; ++i)
+    for (unsigned i = 0; i < size_; ++i)
     {
-        if (time >= points_[i].first)
+        if (time < points_[i].first)
         {
-            return Interpolate(time, d);
-        }
-        if (i > d + degree_ / 2)
-        {
-            ++d;
+            return Interpolate(time, i - 1);
         }
     }
     return std::numeric_limits<Real>::quiet_NaN();

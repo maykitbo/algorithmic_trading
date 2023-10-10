@@ -92,3 +92,40 @@ void Facade::ApproximationClear()
     approximation_data_.first.clear();
     approximation_data_.second.clear();
 }
+
+
+int Facade::TimeTestFile(const std::string &filename)
+{
+    try {
+        Points data = ParserCsv::Parse(filename);
+        RemoveInterpolation();
+        time_test_data_ = Convert::ToDec(data);
+        return data.size();
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << '\n';
+        return -1;
+    }
+    return 0;
+}
+
+void Facade::TimeCompare(
+        bool cubic_spline,
+        const std::vector<unsigned> &newtons_degree,
+        unsigned points_count,
+        unsigned partitions,
+        const InterpolationTime::result_proc &func)
+{
+    InterpolationTime::Compare(
+            time_test_data_,
+            cubic_spline,
+            newtons_degree,
+            points_count,
+            partitions,
+            func);
+}
+
+void Facade::TimeTestClear()
+{
+    time_test_data_.clear();
+}
+

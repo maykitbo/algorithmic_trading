@@ -19,6 +19,11 @@ Background::Background(Parameters &params,
 
 void Background::Draw()
 {
+    if (!p_.Valid())
+    {
+        std::cerr << "Graph::Background::Draw: Parameters is not valid\n";
+        return;
+    }
     painter_.begin(&image_);
     image_.fill(color_);
     if (axes_ == true)
@@ -33,6 +38,7 @@ void Background::Draw()
     }
     unsigned min, max;
     painter_.setPen(grid_pen_);
+
     if (vertical_grid_)
     {
         min = p_.Left();
@@ -140,13 +146,13 @@ void Background::SetTextFont(const QFont &font) noexcept
 void Background::SetXTextFunc(const TextFunc &func) noexcept
 {
     x_text_func_ = func;
-    Draw();
+    // Draw();
 }
 
 void Background::SetYTextFunc(const TextFunc &func) noexcept
 {
     y_text_func_ = func;
-    Draw();
+    // Draw();
 }
 
 void Background::SetTextPen(const QPen &pen) noexcept

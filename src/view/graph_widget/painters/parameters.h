@@ -31,6 +31,8 @@ class Parameters
         qreal GetXDistance() const noexcept;
         qreal GetYDistance() const noexcept;
 
+        bool Valid();
+
         void SetTopIndent(qreal indent) noexcept;
         void SetBottomIndent(qreal indent) noexcept;
         void SetLeftIndent(qreal indent) noexcept;

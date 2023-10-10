@@ -18,11 +18,20 @@ class WidgetFrame : public QWidget
         virtual ~WidgetFrame() = default;
         void AddGraph(const data_t &data, const QString &name, bool points = false, bool removeable = true);
         void AddGraph(data_t &&data, const QString &name, bool points = false, bool removeable = true);
+        void AddGraph(const QString &name, bool points = false, bool removeable = true);
 
         void Clear();
         Frame *GetFrame();
         Frame *DetachFrame();
         void AttachFrame();
+        void Draw();
+        BackgroundFrame *GetBackground();
+
+        PainterFrame *operator[](unsigned index);
+        void Remove(unsigned index);
+    
+    signals:
+        void AllDrawn();
     
     private:
         void paintEvent(QPaintEvent *event) override;

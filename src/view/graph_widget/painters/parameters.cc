@@ -41,6 +41,16 @@ qreal Parameters::GetXDistance() const noexcept
 qreal Parameters::GetYDistance() const noexcept
     { return y_max - y_min; }
 
+
+bool Parameters::Valid()
+{
+    return !(isnan(x_min) || isnan(x_max) || isnan(y_min) || isnan(y_max) ||
+            isinf(x_min) || isinf(x_max) || isinf(y_min) || isinf(y_max) ||
+            x_min >= x_max || y_min >= y_max || isnan(dx), isnan(dy) ||
+            isinf(dx) || isinf(dy) || isnan(x_factor) || isnan(y_factor) ||
+            isinf(x_factor) || isinf(y_factor));
+}
+
 void Parameters::Resize(qreal w, qreal h)
 {
     height = h;

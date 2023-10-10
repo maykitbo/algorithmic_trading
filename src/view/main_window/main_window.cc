@@ -13,6 +13,7 @@ MainWindow::MainWindow(Facade &facade, QWidget *parent)
     
     InterpolationInit();
     ApproximationInit();
+    TimeTestInit();
 }
 
 

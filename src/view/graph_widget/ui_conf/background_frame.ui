@@ -233,7 +233,14 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
-         <widget class="QSpinBox" name="grids_spin"/>
+         <widget class="QSpinBox" name="grids_spin">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QComboBox" name="grids_box"/>
@@ -275,7 +282,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QDoubleSpinBox" name="x_step_spin"/>
+         <widget class="QDoubleSpinBox" name="x_step_spin">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -314,7 +328,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QDoubleSpinBox" name="y_step_spin"/>
+         <widget class="QDoubleSpinBox" name="y_step_spin">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -358,7 +379,14 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_9">
         <item>
-         <widget class="QSpinBox" name="axes_spin"/>
+         <widget class="QSpinBox" name="axes_spin">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QComboBox" name="axes_box"/>
@@ -405,7 +433,14 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_10">
         <item>
-         <widget class="QSpinBox" name="font_spin"/>
+         <widget class="QSpinBox" name="font_spin">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QFontComboBox" name="font_box"/>

@@ -59,7 +59,7 @@ void MainWindow::InterpolationRawData(Points &data)
     ui_->i_points_spin_box->setMinimum(data.size());
     InterpolationClearHelper();
     ui_->i_graph_widget->AddGraph(data, "Base", false, false);
-    ui_->i_file_info_lable->setText(FileNameString(i_filename_, data.size()));
+    // ui_->i_file_info_lable->setText(FileNameString(i_filename_, data.size()));
     ++i_graphs_;
     ui_->i_time_frame->setEnabled(true);
     ui_->i_add_graph_frame->setEnabled(true);
@@ -83,10 +83,6 @@ void MainWindow::NewtonPolynomialButton()
     unsigned degree = ui_->N_degree_spin_ag->value();
     auto data = facade_.NewtonPolynomialData(ui_->i_points_spin_box->value(), degree);
     ui_->i_graph_widget->AddGraph(data, "Newton " + QString::number(degree), false, true);
-    // ui_->i_set_frame->updateGeometry();
-    // ui_->i_set_frame->update();
-    // updateGeometry();
-    // update();
     ++i_graphs_;
     if (i_graphs_ == i_max_graphs_)
     {
@@ -103,12 +99,13 @@ void MainWindow::InterpolationFileButton()
 void MainWindow::InterpolationFileRead(const QString &filename)
 {
     auto result = facade_.InterpolationFile(filename.toStdString());
-    if (!result.first && !filename.isEmpty())
+    if (!result.first || filename.isEmpty())
     {
         QMessageBox::critical(this, "Error", "Incorrect file");
         return;
     }
-    i_filename_ = filename;
+    // i_filename_ = filename;
+    ui_->i_file_info_lable->setText(FileNameString(filename, result.second.size()));
     InterpolationRawData(result.second);
 }
 

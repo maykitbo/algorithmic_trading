@@ -78,12 +78,9 @@ class Background : public AbstractPainter
         {
             if (var == val)
                 return;
-            
-            if constexpr (std::is_same_v<T, qreal>)
-                std::cout << var << ' ' << val << '\n';
 
             var = val;
-            Draw();
+            // Draw();
         }
 };
 

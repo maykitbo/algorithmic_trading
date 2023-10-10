@@ -40,6 +40,20 @@ PainterFrame::PainterFrame(Parameters &params,
     Init();
 }
 
+void PainterFrame::AddData(const data_t &data)
+{
+    std::copy(data.begin(), data.end(), std::back_inserter(data_));
+    MinMax();
+    emit MinMaxUpdate();
+}
+
+void PainterFrame::AddData(const std::pair<double, double> &data)
+{
+    data_.push_back(data);
+    MinMax();
+    emit MinMaxUpdate();
+}
+
 void PainterFrame::Action()
 {
     Draw();

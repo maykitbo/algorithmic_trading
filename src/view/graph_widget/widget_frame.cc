@@ -14,7 +14,7 @@ WidgetFrame::WidgetFrame(bool attach_frame, QWidget *parent)
     InitializeResources();
     connect(frame_, &Frame::ReDraw, this, [&] ()
     {
-        update();
+        repaint();
     });
     setMinimumHeight(min_height_);
     setMinimumWidth(min_width_);
@@ -46,20 +46,43 @@ void WidgetFrame::paintEvent(QPaintEvent *event)
         QPainter(this).drawImage(p_.Left(), p_.Top(), layer->GetImage());
     });
     QWidget::paintEvent(event);
+    emit AllDrawn();
 }
 
 void WidgetFrame::AddGraph(const data_t &data, const QString &name, bool points, bool removeable)
 {
     frame_->AddGraph(name, data, points, removeable);
-    update();
 }
 
 void WidgetFrame::AddGraph(data_t &&data, const QString &name, bool points, bool removeable)
 {
     frame_->AddGraph(name, data, points, removeable);
-    update();
 }
 
+void WidgetFrame::AddGraph(const QString &name, bool points, bool removeable)
+{
+    frame_->AddGraph(name, points, removeable);
+}
+
+void WidgetFrame::Draw()
+{
+    frame_->Draw();
+}
+
+PainterFrame *WidgetFrame::operator[](unsigned index)
+{
+    return (*frame_)[index];
+}
+
+BackgroundFrame *WidgetFrame::GetBackground()
+{
+    return frame_->GetBackground();
+}
+
+void WidgetFrame::Remove(unsigned index)
+{
+    frame_->Remove(index);
+}
 
 void WidgetFrame::wheelEvent(QWheelEvent *event)
 {
