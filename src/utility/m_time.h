@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include <string>
 #include <chrono>
 #include <functional>
+#include <string>
 #include <vector>
 
 namespace s21 {
@@ -87,12 +87,14 @@ std::vector<int64_t> Compare(int N, Args... functions) {
   return result;
 }
 
-template<class Unit>
+template <class Unit>
 std::string GetAdapt(int64_t time_unit, int64_t max_len = 10000) {
-  static const std::vector<std::pair<std::string, int>> factors{{"ns", 1000}, {"mcs", 1000}, {"ms", 1000}, {"sec", 60}, {"min", 60}, {"h", 24}};
+  static const std::vector<std::pair<std::string, int>> factors{
+      {"ns", 1000}, {"mcs", 1000}, {"ms", 1000},
+      {"sec", 60},  {"min", 60},   {"h", 24}};
   std::string result;
   auto iter = factors.begin();
-  while(iter->first != Prefix<Unit>::val) {
+  while (iter->first != Prefix<Unit>::val) {
     ++iter;
   }
   while (time_unit > max_len && iter != factors.end()) {

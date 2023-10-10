@@ -3,9 +3,8 @@
 #include <algorithm>
 #include <fstream>
 #include <functional>
-#include <vector>
 #include <iostream>
-
+#include <vector>
 
 namespace s21 {
 
@@ -82,10 +81,11 @@ class Matrix {
 
   void Resize(i_type rows, i_type cols, T value = T());
   void Resize(i_type rows, i_type cols, const std::function<T(void)> &func);
-  void Resize(i_type rows, i_type cols, const std::function<T(i_type, i_type)> &func);
+  void Resize(i_type rows, i_type cols,
+              const std::function<T(i_type, i_type)> &func);
   void Resize(i_type rows, i_type cols, const std::function<void(T &)> &func);
-  void Resize(i_type rows, i_type cols, const std::function<void(i_type, i_type, T &)> &func);
-
+  void Resize(i_type rows, i_type cols,
+              const std::function<void(i_type, i_type, T &)> &func);
 
   Matrix &operator+=(const Matrix &other);
   Matrix operator+(const Matrix &other) const;
@@ -97,7 +97,6 @@ class Matrix {
   Matrix operator*(const Matrix &other) const;
   Matrix &operator*=(const T &value);
   Matrix operator*(const T &value) const;
-
 
   bool operator==(const Matrix &other) const;
   bool operator!=(const Matrix &other) const;
@@ -416,7 +415,7 @@ void Matrix<T>::Mul(const Matrix &a, const Matrix &b, Matrix &c) {
   }
 }
 
-template<class T>
+template <class T>
 void Matrix<T>::MulABT(const Matrix &a, const Matrix &b, Matrix &c) {
   if (a.cols_ != b.cols_ || a.rows_ != c.rows_ || b.rows_ != c.cols_) {
     throw std::runtime_error("Matrix::MulABT: different sizes");
@@ -435,7 +434,7 @@ void Matrix<T>::MulABT(const Matrix &a, const Matrix &b, Matrix &c) {
   }
 }
 
-template<class T>
+template <class T>
 void Matrix<T>::MulATB(const Matrix &a, const Matrix &b, Matrix &c) {
   if (a.rows_ != b.rows_ || a.cols_ != c.rows_ || b.cols_ != c.cols_) {
     throw std::runtime_error("Matrix::MulATB: different sizes");
@@ -454,7 +453,7 @@ void Matrix<T>::MulATB(const Matrix &a, const Matrix &b, Matrix &c) {
   }
 }
 
-template<class T>
+template <class T>
 void Matrix<T>::Divide(const Matrix &a, Matrix &b, T value) {
   if (a.rows_ != b.rows_ || a.cols_ != b.cols_) {
     throw std::runtime_error("Matrix::Divide: different sizes");
@@ -468,7 +467,7 @@ void Matrix<T>::Divide(const Matrix &a, Matrix &b, T value) {
   }
 }
 
-template<class T>
+template <class T>
 void Matrix<T>::Inverse(const Matrix &a, Matrix &c) {
   if (a.rows_ != a.cols_ || a.rows_ != c.rows_ || a.cols_ != c.cols_) {
     throw std::runtime_error("Matrix::Inverse: incorrect sizes");
@@ -476,7 +475,8 @@ void Matrix<T>::Inverse(const Matrix &a, Matrix &c) {
 
   T det = Determinant(a);
   if (det == 0) {
-    throw std::runtime_error("Matrix::Inverse: matrix is singular (non-invertible)");
+    throw std::runtime_error(
+        "Matrix::Inverse: matrix is singular (non-invertible)");
   }
 
   int n = a.rows_;
@@ -485,9 +485,9 @@ void Matrix<T>::Inverse(const Matrix &a, Matrix &c) {
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
       Matrix<T> minor = Minor(a, i, j);
-      
+
       T minor_det = Determinant(minor);
-      
+
       minors(i, j) = (i + j) % 2 == 0 ? minor_det : -minor_det;
     }
   }
@@ -495,7 +495,7 @@ void Matrix<T>::Inverse(const Matrix &a, Matrix &c) {
   Divide(adj, c, det);
 }
 
-template<class T>
+template <class T>
 T Matrix<T>::Determinant(const Matrix &a) {
   if (a.rows_ != a.cols_) {
     throw std::runtime_error("Matrix::Determinant: matrix is not square");
@@ -516,11 +516,11 @@ T Matrix<T>::Determinant(const Matrix &a) {
       det -= cofactor;
     }
   }
-  
+
   return det;
 }
 
-template<class T>
+template <class T>
 Matrix<T> Matrix<T>::Minor(const Matrix &a, int row, int col) {
   Matrix minor(a.rows_ - 1, a.cols_ - 1);
   int minor_row = 0;
@@ -541,7 +541,7 @@ Matrix<T> Matrix<T>::Minor(const Matrix &a, int row, int col) {
   return minor;
 }
 
-template<class T>
+template <class T>
 Matrix<T> Matrix<T>::Transpose(const Matrix &a) {
   Matrix<T> transpose(a.cols_, a.rows_);
   for (int i = 0; i < a.rows_; i++) {
@@ -551,7 +551,6 @@ Matrix<T> Matrix<T>::Transpose(const Matrix &a) {
   }
   return transpose;
 }
-
 
 template <class T>
 void Matrix<T>::Mul(const Matrix &a, T value, Matrix &c) {

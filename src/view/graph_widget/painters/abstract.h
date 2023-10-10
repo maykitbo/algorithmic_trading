@@ -8,37 +8,32 @@
 
 namespace Graph {
 
-class AbstractPainter
-{
+class AbstractPainter {
+ public:
+  AbstractPainter(Parameters &params, const QString &name, QSize size,
+                  QImage::Format format = QImage::Format_ARGB32);
 
-    public:
-        AbstractPainter(Parameters &params,
-                    const QString &name,
-                    QSize size,
-                    QImage::Format format = QImage::Format_ARGB32);
+  virtual void Draw() = 0;
+  virtual void Resize(QSize size);
+  void SetName(const QString &name);
 
-        virtual void Draw() = 0;
-        virtual void Resize(QSize size);
-        void SetName(const QString &name);
+  QSize GetSize() const noexcept;
+  const QString &GetName() const noexcept;
+  const QImage &GetImage() const noexcept;
 
-        QSize GetSize() const noexcept;
-        const QString &GetName() const noexcept;
-        const QImage &GetImage() const noexcept;
+  void SavePng(const QString &path) const;
 
-        void SavePng(const QString &path) const;
+  virtual ~AbstractPainter() = default;
 
-        virtual ~AbstractPainter() = default;
+  AbstractPainter(const AbstractPainter &other);
+  AbstractPainter(AbstractPainter &&other);
 
-        AbstractPainter(const AbstractPainter &other);
-        AbstractPainter(AbstractPainter &&other);
+ protected:
+  Parameters &p_;
+  QImage image_;
+  QPainter painter_;
 
-    protected:
-        Parameters &p_;
-        QImage image_;
-        QPainter painter_;
-
-        QString name_;   
+  QString name_;
 };
 
-
-} // namespace Graph
+}  // namespace Graph
