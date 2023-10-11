@@ -9,10 +9,7 @@ WidgetFrame::WidgetFrame(bool attach_frame, QWidget *parent)
       frame_(new Frame(p_, nullptr)),
       layout_(new QGridLayout(this)) {
   InitializeResources();
-  connect(frame_, &Frame::ReDraw, this, [&]() {
-    // repaint();
-    update();
-  });
+  connect(frame_, &Frame::ReDraw, this, [&]() { update(); });
   setMinimumHeight(min_height_);
   setMinimumWidth(min_width_);
   layout_->addItem(
@@ -71,26 +68,20 @@ BackgroundFrame *WidgetFrame::GetBackground() {
 void WidgetFrame::Remove(unsigned index) { frame_->Remove(index); }
 
 void WidgetFrame::wheelEvent(QWheelEvent *event) {
-  qreal scale_factor = 1.0;
-  if (event->angleDelta().y() > 0) {
-    ++scale_;
-    scale_factor = wheel_scale_factor_;
-  } else {
-    if (scale_ <= 0) {
-      return QWidget::wheelEvent(event);
-    }
-    --scale_;
-    scale_factor = 1.0 / wheel_scale_factor_;
+  event_mutex_.lock();
+
+  if (p_.WheelScale(event->angleDelta().y(), event->position())) {
+    frame_->Draw();
+    update();
   }
 
-  p_.WheelScale(scale_factor, event->position());
-
-  frame_->Draw();
-  update();
+  event_mutex_.unlock();
   QWidget::wheelEvent(event);
 }
 
 void WidgetFrame::mouseMoveEvent(QMouseEvent *event) {
+  event_mutex_.lock();
+
   if (mouse_pressed_) {
     p_.Move(event->pos().x() - mouse_pos_.x(),
             event->pos().y() - mouse_pos_.y());
@@ -98,6 +89,8 @@ void WidgetFrame::mouseMoveEvent(QMouseEvent *event) {
     update();
     mouse_pos_ = event->pos();
   }
+
+  event_mutex_.unlock();
   QWidget::mouseMoveEvent(event);
 }
 

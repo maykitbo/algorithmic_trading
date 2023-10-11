@@ -9,8 +9,10 @@ void MainWindow::InterpolationInit() {
   ui_->i_points_spin_box->setMaximum(1e7);
   ui_->N_degree_spin_ag->setMaximum(16);
   ui_->N_degree_spin_ag->setMinimum(2);
+  ui_->N_degree_spin_ag->setValue(3);
   ui_->N_degree_spin_val->setMaximum(16);
   ui_->N_degree_spin_val->setMinimum(2);
+  ui_->N_degree_spin_val->setValue(3);
 
   auto layers_frame = ui_->i_graph_widget->DetachFrame();
   layers_frame->setParent(ui_->i_set_frame);

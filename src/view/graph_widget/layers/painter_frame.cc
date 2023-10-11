@@ -89,15 +89,12 @@ bool PainterFrame::Visible() const { return ui_->visible_radio->isChecked(); }
 
 PainterFrame::~PainterFrame() { delete ui_; }
 
-
-void PainterFrame::DrawingPoints(bool draw_points)
-{
+void PainterFrame::DrawingPoints(bool draw_points) {
   draw_points_ = draw_points;
   ui_->points_radio->setChecked(draw_points_);
 }
 
-void PainterFrame::DrawingLines(bool draw_lines)
-{
+void PainterFrame::DrawingLines(bool draw_lines) {
   draw_lines_ = draw_lines;
   ui_->line_radio->setChecked(draw_lines_);
 }

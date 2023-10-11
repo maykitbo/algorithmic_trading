@@ -2,6 +2,7 @@
 
 #include <QGridLayout>
 #include <QMouseEvent>
+#include <QMutex>
 #include <QResource>
 #include <QWheelEvent>
 #include <QWidget>
@@ -52,9 +53,10 @@ class WidgetFrame : public QWidget {
   bool mouse_pressed_;
   bool ready_{false};
 
-  qreal wheel_scale_factor_{1.1};
   qreal min_width_{256};
   qreal min_height_{256};
+
+  QMutex event_mutex_;
 
   int scale_{0};
 

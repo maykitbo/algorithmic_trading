@@ -95,8 +95,6 @@ void Frame::Remove(unsigned index) {
   --visible_count_;
   ProcessMinMax();
   Draw();
-  // emit GraphRemoved();
-  // emit ReDraw();
 }
 
 void Frame::AddGraph(const QString &name, const Graph::data_t &data,
@@ -128,8 +126,9 @@ void Frame::AddLayer(PainterFrame *ptr, bool points, bool removeable) {
   ptr->NameLabel()->installEventFilter(this);
 
   ProcessMinMax();
-  p_.SetFactors();
-
+  if (layout_->count() == 2 || visible_count_ == 0) {
+    p_.SetFactors();
+  }
   ++visible_count_;
   Draw();
   connect(ptr, &PainterFrame::Removed, this, [&]() {
@@ -141,22 +140,23 @@ void Frame::AddLayer(PainterFrame *ptr, bool points, bool removeable) {
     ProcessMinMax();
     Draw();
     emit GraphRemoved();
-    // emit ReDraw();
   });
   connect(ptr, &PainterFrame::ReDraw, this, &Frame::ReDraw);
   connect(ptr, &PainterFrame::ChangeVisible, this, [&](bool visible) {
+    if (visible_count_ == 1 && !visible) {
+      ProcessMinMax();
+    }
+    if (visible_count_ == 0) {
+      p_.SetFactors();
+    }
     visible_count_ += visible ? 1 : -1;
-    ProcessMinMax();
     Draw();
-    // emit ReDraw();
   });
   connect(ptr, &PainterFrame::MinMaxUpdate, this, [&]() {
     ProcessMinMax();
     p_.SetFactors();
     Draw();
-    // emit ReDraw();
   });
-  // emit ReDraw();
 }
 
 void Frame::ProcessMinMax() {
@@ -182,6 +182,7 @@ void Frame::Clear() {
       delete layer;
     }
   }
+  visible_count_ = 0;
   colors_.Update();
 }
 

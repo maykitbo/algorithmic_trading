@@ -53,7 +53,7 @@ class Parameters {
   QSize Size() const noexcept;
 
   void Move(qreal x, qreal y);
-  void WheelScale(qreal scale_factor, QPointF cursor_pos);
+  bool WheelScale(qreal scale_factor, QPointF cursor_pos);
 
  private:
   qreal dx{0};
@@ -69,13 +69,16 @@ class Parameters {
 
   qreal top_indent{10};
   qreal bottom_indent{30};
-  qreal left_indent{50};
+  qreal left_indent{70};
   qreal right_indent{10};
 
   qreal width{1};
   qreal height{1};
   qreal graph_width{1};
   qreal graph_height{1};
+
+  int scale{0};
+  qreal wheel_scale_factor_{1.1};
 
   void SetDx(qreal dx);
   void SetDy(qreal dy);

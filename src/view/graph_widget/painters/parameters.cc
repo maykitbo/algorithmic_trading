@@ -137,6 +137,8 @@ void Parameters::SetFactors() {
 
   y_factor = graph_height / (y_min - y_max);
   dy = graph_height - y_min * y_factor;
+
+  scale = 0;
 }
 
 QSize Parameters::GraphSize() const noexcept {
@@ -158,15 +160,29 @@ void Parameters::Move(qreal x, qreal y) {
   SetDy(dy + y);
 }
 
-void Parameters::WheelScale(qreal scale_factor, QPointF cursor_pos) {
+bool Parameters::WheelScale(qreal scale_factor, QPointF cursor_pos) {
+  qreal f = 1.0;
+  if (scale_factor > 0) {
+    ++scale;
+    f = wheel_scale_factor_;
+  } else {
+    if (scale <= 0) {
+      return false;
+    }
+    --scale;
+    f = 1.0 / wheel_scale_factor_;
+  }
+
   qreal pos_x = cursor_pos.x() - left_indent;
   qreal pos_y = cursor_pos.y() - top_indent;
 
-  x_factor *= scale_factor;
-  y_factor *= scale_factor;
+  x_factor *= f;
+  y_factor *= f;
 
-  SetDx(pos_x - scale_factor * (pos_x - dx));
-  SetDy(pos_y - scale_factor * (pos_y - dy));
+  SetDx(pos_x - f * (pos_x - dx));
+  SetDy(pos_y - f * (pos_y - dy));
+
+  return true;
 }
 
 void Parameters::SetTopIndent(qreal indent) noexcept {
